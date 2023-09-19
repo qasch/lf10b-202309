@@ -1,6 +1,6 @@
 = Übungen zu Dateien und Verzeichnissen
 
-Erselle ein Verzeichnis `uebungen-dateien-verzeichnisse` im aktuellen Verzeichnis und wechsel hinein. Dieses Verzeichnis ist das "_aktuelle Verzeichnis_" für die folgenden Übungen.
+Erstelle ein Verzeichnis `uebungen-dateien-verzeichnisse` im aktuellen Verzeichnis und wechsel hinein. Dieses Verzeichnis ist das "_aktuelle Verzeichnis_" für die folgenden Übungen.
 
 == Aufgabe 1
 
