@@ -1,0 +1,19 @@
+= Dokumentation Linux LF10b
+
+== Kommandos
+
+Aufbau von Kommandos:
+
+ kommando [-option]... [argument]...
+
+- (Kurz-) Optionen werden von einem einfachen Minuszeichen eingeleitet und bestehen aus einem einzelnen Buchstaben
+- mehrere Optionen können (in der Regel in beliebiger Reihenfolge) nach einem einzelnen Minuszeichen stehen
+- Optionen geben an, *wie* sich ein Kommando verhält
+- abhängig vom Kommando können (mehrere) Argumente übergeben werden
+- Argumente geben an, *worauf* sich ein Kommando bezieht
+- es kann auch Optionen geben, die direkt ein Argument verlangen. Dies wird direkt hinter die Kurzoption geschrieben (ohne Gleichheitszeichen `=`). Bei Verwendung der Langoption (zwei Minuszeichen) erfolgt die Zuweisung in der Regel mit einem Gleichheitszeichen. 
+
+Beispiel `tar`:
+
+ tar -f /path/to/file
+ tar --file=/path/to/file
