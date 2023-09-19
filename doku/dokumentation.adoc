@@ -17,3 +17,45 @@ Beispiel `tar`:
 
  tar -f /path/to/file
  tar --file=/path/to/file
+
+- es gibt zwei Arten von Kommandos: *intern* und *extern* realisierte. 
+  - *intern* realisierte Kommandos werden von der Shell (z.B. `BASH`) direkt bereitgestellt
+  - *extern* realisierte Kommandos sind zusätzlich als eigene Pakete installiert
+
+== Grundlegende Kommandos
+
+- `whoami` angemeldeten Benutzer anzeigen
+- `pwd` aktuelles Verzeichnis ausgeben
+- `mkdir <verzeichnis>` Verzeichnis anlegen
+- `ls` Verzeichnisinhalt anzeigen
+  - `ls -a` auch versteckte Dateien (welche mit einem Punkt beginnen anzeigen)
+  - `ls -lah` detaillierte Informationen, versteckte Dateien und Grössen in menschenlesbarere Form (KiB, MiB, GiB ...)
+- `cd <verzeichnis>` ins Verzeichnis `<verzeichnis>` wechseln
+- `cd` ins Heimatverzeichnis wechseln
+- `cd ~` ins Heimatverzeichnis wechseln
+- `cd /home/<user>` ins Heimatverzeichnis wechseln
+- `cd -` ins vorherige Verzeichnis wechseln
+- `cd ..` ins übergeordnete Verzeichnis wechseln
+- Pfadangaben:
+  - *absolut* vollständiger Pfad, immer beginnend mit dem Wurzelverzeihnis (`/`)
+  - *relativ* ausgehend vom aktuellen Verzeichnis, beginnt *nie* mit einem Slash (`/`)
+- `touch <datei>` kann verwendet werden, um leere Dateien zu erstellen
+- `clear` Bildschirminhalt leeren (Tastenkombination `STRG+L`)
+- `date` aktuelles Datum und Uhrzeit ausgeben, Ausgabe kann formatiert werden, z.B. `date "+%d.%m.%Y"` -> `19.09.2023`
+- `history` Anzeige der zuletzt eingegebenen Kommandos
+
+== Hilfe auf der Kommandozeile
+
+- die Kurzhilfe zu einem Kommando kann (in der Regel) über die Option `--help` (manchmal auch `-h`) aufgerufen werden
+- eine ausführliche Hilfe bieten die Manpages, aufrufbar duch das Kommando `man <kommando>`
+- intern realisierte Kommandos haben keine eigene Manpage. Hilfe dazu erhält man mittels `help <kommando>` bzw. sind diese in der Manpage der `BASH` enthalten- bei der Angabe vom Kommandos und Pfaden sollte immer die Autovervollständigung (mittels TAB-Taste) genutzt werden
+- alle eingegebenen Kommandos werden in der `history` gespeichert. Über die Pfeltasten können ältere Kommandos aufgerufen werden
+- mit der _History Expansion_ kann einfach auf in der Vergangenheit eingegebene Kommandos zugegriffen werden: `!107` führt das Kommando mit dem Index `107` erneut aus. Weiteres siehe `man history`
+
+== Tastenkombinationen
+
+- `STRG+L` Kommando `clear`
+- `STRG+C` sendet Signal `SIGINT` an Kommando (ähnlich wie _Abbrechen_)
+
+
+
