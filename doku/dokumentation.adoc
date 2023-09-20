@@ -43,6 +43,8 @@ Beispiel `tar`:
 - `clear` Bildschirminhalt leeren (Tastenkombination `STRG+L`)
 - `date` aktuelles Datum und Uhrzeit ausgeben, Ausgabe kann formatiert werden, z.B. `date "+%d.%m.%Y"` -> `19.09.2023`
 - `history` Anzeige der zuletzt eingegebenen Kommandos
+- `cat <file>` gibt den Inhalt von `<file>` auf der Konsole aus
+- `less <file>` gibt den Inhalt von `<file>` im Pager `less` aus. So können wir in der Datei scrollen, suchen usw.
 
 == Hilfe auf der Kommandozeile
 
@@ -66,16 +68,33 @@ Beispiel `tar`:
 - `mv <quelle> <ziel>` verschiebt `<quelle>` nach `<ziel>`. Sowohl `<quelle>` als auch `<ziel>` können reguläre Dateien oder Verzeichnisse sein.
   - bei `mv` gibt es keine Option `-r`, da wir hier nicht rekursiv vorgehen müssen. Siehe Screenshot:
 
-image::../screenshots/cp_und_mv.png[cp_und_mv, 400]
+image::../screenshots/cp_und_mv.png[cp_und_mv, 600]
 
-- `rm`
+- `rm <datei>` löscht `<datei>` ohne Nachfrage
+- `rm -r <verzeichnis>` löscht `<verzeichnis>` mit Inhalt ohne Nachfrage
+- `rmdir <verzeichnis>` löscht `<verzeichnis>`, aber nur, wenn es leer ist
+- Option `-i` gilt für `cp`, `mv` und `rm`: Nachfrage, falls Ziel überschrieben oder gelöscht werden soll
 
+== Wildcards / Globbing Characters
 
+- `*` (Asterisk) steht für ein beliebiges Zeichen, das beliebig oft vorkommen darf
+- `?` steht für ein beliebiges Zeichen, das exakt einmal vorkommen darf
+- Beispiele: 
+  - `ls *.txt` listet alle Textdateien
+  - `rm file*` löscht alle Dateien, die mit `file` beginnen
+  - `rm -r *` löscht alle Dateien und Verzeichnisse im aktuellen Verzeichnis (unwideruflich - Gefahr!)
 
+== Variablen
 
-
-
-
+- es gibt zwei Arten von Variablen: 
+  - _Systemvariablen_/_Umgebungsvariablen_: Diese sind systemweit in jeder Shell existent und gültig und werden nach Konvention komplett in Großbuchstaben gescchrieben
+  - _Shellvariablen_: gelten nur für die Shell, in der sie definiert wurden. Werden nicht automatisch vererbt oder weitergereicht, könenn aber exportiert werden. Dann sind sie auch in Subshells gültig. Werden nach Konvention in Kleinbuchstaben geschrieben
+  - Beispiele:
+    - `foo=bar` Erstelle die Variable `foo` und weise ihr den Wert `bar` zu
+    - `echo $HOME` Zeige den Inhalt der Umgebungsvariabel `HOME` an
+    - `echo $foo` Zeige den Inhalt der Shellvariable `foo` an
+    - `export foo` Mache `foo` auch in Subshells verfügbar
+- wollen wir eigenen Variablen definieren, die systemweit auch über einen Neustart hinaus gültig sind, so müssen wir diese in einer geeignetetn Datei definieren
 
 
 
