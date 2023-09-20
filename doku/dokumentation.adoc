@@ -68,7 +68,7 @@ Beispiel `tar`:
 - `mv <quelle> <ziel>` verschiebt `<quelle>` nach `<ziel>`. Sowohl `<quelle>` als auch `<ziel>` können reguläre Dateien oder Verzeichnisse sein.
   - bei `mv` gibt es keine Option `-r`, da wir hier nicht rekursiv vorgehen müssen. Siehe Screenshot:
 
-image::../screenshots/cp_und_mv.png[cp_und_mv, 600]
+image::../screenshots/cp_und_mv.png[cp_und_mv, 800]
 
 - `rm <datei>` löscht `<datei>` ohne Nachfrage
 - `rm -r <verzeichnis>` löscht `<verzeichnis>` mit Inhalt ohne Nachfrage
