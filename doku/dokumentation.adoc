@@ -57,5 +57,36 @@ Beispiel `tar`:
 - `STRG+L` Kommando `clear`
 - `STRG+C` sendet Signal `SIGINT` an Kommando (ähnlich wie _Abbrechen_)
 
+== Grundlegende Dateioperationen
+
+- `cp <quelle> <ziel>`: kopiert `<quelle>` nach `<ziel>`. Sowohl `<quelle>` als auch `<ziel>` können reguläre Dateien oder Verzeichnisse sein. 
+  - ist `<ziel>` eine Datei die nicht existiert, wird diese erstellt, existiert die Datei wird sie (ohne Nachfrage) überschrieben
+  - ist `<ziel>` ein Verzeichnis, wird die Datei hineinkopiert, eine beretis vorhandene Datei würde auch überschrieben werden
+  - ist `<quelle>` ein Verzeichnis, so müssen wird die Option `-r` (rekursiv) verwenden: `cp -r mydir/ another_dir/`
+- `mv <quelle> <ziel>` verschiebt `<quelle>` nach `<ziel>`. Sowohl `<quelle>` als auch `<ziel>` können reguläre Dateien oder Verzeichnisse sein.
+  - bei `mv` gibt es keine Option `-r`, da wir hier nicht rekursiv vorgehen müssen. Siehe Screenshot:
+
+image::../screeshots/cp_und_mv.png[cp_und_mv, 400]
+
+- `rm`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
