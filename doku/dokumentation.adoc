@@ -66,7 +66,7 @@ Beispiel `tar`:
 - `mv <quelle> <ziel>` verschiebt `<quelle>` nach `<ziel>`. Sowohl `<quelle>` als auch `<ziel>` können reguläre Dateien oder Verzeichnisse sein.
   - bei `mv` gibt es keine Option `-r`, da wir hier nicht rekursiv vorgehen müssen. Siehe Screenshot:
 
-image::../screenshots/cp_und_mv.png[cp_und_mv, 400]
+image::../screenshots/cp_und_mv.png[cp_und_mv, 600]
 
 - `rm`
 
