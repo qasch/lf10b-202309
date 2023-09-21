@@ -96,16 +96,65 @@ image::../screenshots/cp_und_mv.png[cp_und_mv, 800]
     - `export foo` Mache `foo` auch in Subshells verfügbar
 - wollen wir eigenen Variablen definieren, die systemweit auch über einen Neustart hinaus gültig sind, so müssen wir diese in einer geeignetetn Datei definieren
 
+== Aliase
+
+Mit Aliasen können Kommandos, Pfadangaben usw. "abgekürzt" werden. Beispiele:
+
+ alias ll='ls -l'
+ alias df='df -h'
+
+Wird der Alias auf der Kommandozeile erstellt, ist er nur für diese eine Shell gültig. Sollen Aliase systemweit und über einen Neustart hinaus gültig sein, so müssen diese in einer Datei (z.B. `~/.bashrc` oder `~/.bash_aliases` definiert werden.
+
+== Umleitungen und Redirects
+
+=== UNIX Philosopie
+
+- Schreibe Programme so, dass sie nur *eine* Aufgabe erledigen und diese gut machen
+- Schreibe Programme so, dass sie zusammenarbeiten
+- Schreibe Programme so, dass sie Textströme verwenden, denn das ist eine universelle Schnittstelle
+
+=== Kanäle
+
+- `stdin` Standardeingabekanal - `0`
+- `stdout` Standardausgabekanal - `1`
+- `sterr` Standardfehlerkanal - `2`
+
+=== Redirects
+
+Mit Redirects lassen sich obige Kanäle in *Dateien* umleiten:
+
+- `>` einfacher Redirect: Ausgabekanäle können in eine *Datei* umgeleitet werden. Achtung: Inhalt wird überschrieben
+- `>>` doppelter Redirect: Ausgabekanäle können in eine *Datei* umgeleitet werden. Inhalt wird nicht überschrieben, Ausgabe wird angehängt
+
+=== Umleitungen (mit der Pipe |)
+
+Mit der Pipe (`|`) können wir den Ausgabekanal eines Kommandos in den Eingabekanal eines anderen Kommandos umleiten:
+
+ kommando1 | kommando2
+
+ ls /etc | less
+
+Leitet die Ausgabe von `ls` in den Pager `less` um
 
 
+Redirects und Umleitungen können kombiniert werden. Oft werden sog. Komandopipelines erstellt, d.h. eine Kombination aus meheren Umleitungen. Beispiel:
 
+ grep -wr alias ~ | grep -v \# | grep -v _history | grep -v txt | cut -d: -f2
 
+Mit obigem Kommando lassen wir uns alle Aliasdefinitionen in unserem Heimatverzeichnis ausgeben, eliminieren aber alle Kommentare usw. von der Ausgabe.
 
+== Kommandosubstitution
 
+Ähnlich wie die _Variablensubstitution_, nur dass das Kommando durch seine Standardausgabe ersetzt wird. Nützlich z.B. wenn wir die Ausgabe eines Kommandos in einer Variablen speichern wollen.
 
+Beispiel:
 
+ cur_date_time=$(date "+%d.%m.%Y, %H:%M.")
 
+Es gibt zwei Syntaxen:
 
+ $(kommando) 
+ `kommando`
 
-
+In beiden Fällen wird das Kommando in einer Subshell ausgeführt. Kommandosubstitutionen können auch verschachtelt sein.
 
