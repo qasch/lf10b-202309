@@ -1,4 +1,5 @@
 = Dokumentation Linux LF10b
+:toc:
 
 == Kommandos
 
