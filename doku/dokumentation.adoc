@@ -250,7 +250,105 @@ Entfernt eine Gruppe, solange dies nicht die primäre Gruppe eines Users ist.
 
 == Berechtigungen
 
+ -rw-r--r-- 1 tux tux   50 Sep 19 13:32 foo.txt
 
+Die Berechtigungen sind unterteilt in Berechtigungen für 
+
+1. den Besitzer einer Datei
+2. der Gruppe, der die Datei zugeordnet ist
+3. allen, die weder der Besitzer noch Mitglieder der Gruppe sind
+
+ User Group Others
+ rw-  r--   r--
+
+Es gibt folgende Rechte:
+
+ r : read - lesen
+ w : write - schreiben
+ x : execute - auführen
+
+=== Berechtigungen ändern
+
+Mit dem Kommando `chmod` können Berechtigungen vom Besitzer der Datei oder `root` geändert werden.
+
+==== symbolische Rechtevergabe
+
+ u : Besitzer der Datei
+ g : Gruppe 
+ o : Others
+ a : all (User, Group, Others)
+
+ + : Recht(e) hinzufügen
+ - : Recht(e) entfernen
+ = : Recht(e) setzen
+
+Beispiele:
+
+- `chmod u+r file.txt` (adds read to owner)
+- `chmod g-r file.txt` (removes read from group)
+- `chmod o+r file.txt` (adds read to others)
+- `chmod a-w file.txt` (removes write from everyone)
+- `chmod u+rw file.txt` (adds read and write to owner)
+- `chmod ug-wx file.txt` (removes execute and write from owner)
+
+=== Besitzverhältnisse ändern
+
+User und Gruppe einer Datei können mit dem Kommando `chown` angepasst werden.
+
+Berechtigungen auf Dateien:
+
+- r = read = able to view the contents of a file
+- w = write = able to modify the contents of a file
+- x = execute = able to run the file as an executable
+
+Berechtigungen auf Verzeichisse:
+
+- r = read = able to list the files within the directory
+- w = write = able to add/delete files to/from the directory
+- x = execute = able to cd into the directory and access files
+
+==== numerische/oktale Rechtevergabe
+
+Hier werden die Berechtigungen durch Zahlenwerte referenziert:
+
+ r : 4
+ w : 2 
+ x : 1 
+
+Berechtigungen können nur *komplett*, also für Besitzer, Gruppe und Andere gleichzeitig vergeben werden. Die einzelnen Berechtigungen werden dabei addiert.
+
+ chmod 640 foo.txt
+ -rw-r----- 1 tux tux   50 Sep 19 13:32 foo.txt
+
+ chmod 751 foo.txt
+ -rwxr-x--x 1 tux tux   50 Sep 19 13:32 foo.txt
+
+Hintergrund:
+
+Okt   Bin
+---------
+ 1    001
+ 2    010
+ 3    011
+ 4    100
+ 5    101
+ 6    110
+ 7    111
+
+ 1    001
+ 2    010
+ 4    100
+
+Beispiele:
+
+ 111110100
+ rwxrw-r--
+
+- `chmod 755 file.txt` (results in rwxr-xr-x)
+- `chmod 666 file.txt` (results in rw-rw-rw-)
+- `chmod 700 file.txt` (results in rwx------)
+- `chmod 000 file.txt` (results in ---------)
+- `chmod 777 file.txt` (results in rwxrwxrwx)
 
 == Paketverwaltung
 
@@ -266,3 +364,4 @@ Unter Linux werden Programme mittels _Paketen_ über eine Paketverwaltung instal
 
 Bei der Installation von Paketen werden eventuelle _Abhängigkeiten_/_Dependencies_, also weiter Libraries oder Pakete die für die Auführung des Programms notwendig sind, automatisch mit installiert.
 
+== SSH
