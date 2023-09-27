@@ -138,6 +138,14 @@ Docker speichert Daten in den Containern in sog. _Unnamend Volumes_. Auf die Dat
 
  docker run -v /folder/on/host/:/folder/inside/container <image>
 
+== Log Dateien
 
+Auf die Log-Dateien eines Containers kann mit folgendermaßen zugegriffen werden:
+
+ docker logs <container-id/name>
+
+Oft ist es praktisch, die Log-Dateien zu beobachten und so fortlaufend neue Einträge angezeigt zu bekommen:
+
+ docker logs -f <container-id/name>
 
 
