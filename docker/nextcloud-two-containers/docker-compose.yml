@@ -1,0 +1,35 @@
+version: '2'
+
+services:
+
+  nc:
+    image: nextcloud
+    container_name: nc
+    volumes:
+      - ./nextcloud-data:/var/www/html
+    ports:
+      - 8888:80
+    environment:
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=cloudius
+      - MYSQL_PASSWORD=cloudiuspw
+      - MYSQL_HOST=db
+      - NEXTCLOUD_ADMIN_USER=kai
+      - NEXTCLOUD_ADMIN_PASSWORD=kaipw
+      - NEXTCLOUD_TRUSTED_DOMAINS=192.168.100.184
+    links:
+      - db
+    depends_on:
+      - db
+    restart: always
+
+  db:
+    image: mariadb:10.6
+    container_name: db
+    volumes:
+      - ./db:/var/lib/mysql
+    environment:
+      - MARIADB_ROOT_PASSWORD=mariadbroot
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=cloudius
+      - MYSQL_PASSWORD=cloudiuspw
