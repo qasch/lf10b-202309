@@ -1,0 +1,143 @@
+= Dokumentation Docker
+
+Docker ist eine Alternative zur klassischen Virtualisierung. Docker kann benutzt werden, um einzelne Anwendungen plus aller dazu benötigten Abhängigkeiten in einem _Container_ bereitzustellen.
+
+Die Anwendung läuft dann ähnlich wie in der Virtualisierung in einer Art Sandbox, also getrennt/abgeschottet vom restlichen Betriebssystem.
+
+Wird z.B. eine Anwendungen in einem Container kompromitiert, hat dies keine Auswirkungen auf das restliche Betriebssystem.
+
+Ein Container ist soetwas wie eine _super-light-weight_ Virtual Machine.
+
+Mit einer entscheidenden Einschränkung:
+
+Es können nur Container für das jeweilige OS bereitgestellt werden. Das liegt daran, dass Docker Container die Resourcen des Host Betriebssystems nutzen. Es muss also nicht wie in der Virtualisierung die komplette Hardware inklusive Betriebssystem virtualisiert werden.
+
+== Unterschied klassische Virtualisierung und Docker Container
+
+=== Virtualisierung
+
+Was wird alles virtualisiert?
+
+* komplette Hardware (über den Hypervisor [Typ I bzw. Typ II]) wie Ein- und Ausgabegeräte, Netzwerkkarten etc.
+* ein komplettes OS mit unter anderem:
+** Bootloader
+** Kernel
+** Init System
+** sämtlichen Anwendungen, die (mindestens) in einem OS laufen
+** die zu bereitzustellende Anwendung selbst
+** Abhängigkeiten wie Libraries, andere Programme etc.
+** etc.
+* Dies sorgt in den meissten Fällen für einen ziemlichen Overhead, also unnötig verbrauchte Resourcen
+
+=== Container
+
+Was wird alles "containerisiert"?
+
+* Dateisystembaum (-> _chroot_)
+* die bereitzustellende Anwendung
+* alle Abhängigkeiten, die die Anwendungen benötigt (Libraries, Binaries etc.)
+* eigenes Netzwerk
+* Container greifen auf den Kernel und die Hardware des Host-Betriebssystems zu
+
+Dadurch benötigen Container extrem wenig Resourcen, sind sehr schnell erstellt und gestartet und einfach portierbar (auf andere Systeme übertragbar).
+
+== Vorteile von Containern
+
+* Auf einem System können problemlos hunderte Container laufen
+* In einem Container läuft idealerweise eine einzelne Anwendung
+* Komplexere Systeme (z.B. eine Webanwendung mit Datenbank) bestehen dann aus mehreren Containern
+* Solche Systeme können durch eine einzelne Text-Datei (`docker-compose.yml`) beschrieben werden und mit einem einzelnen Kommando (`docker-compose up`) gestartet werden
+
+== Images und Container
+
+* Ein Container wird bei Bedarf aus einem Image heraus gebaut und dann gestartet
+* Ein Image ist ein Bauplan für eine beliebige Menge an Containern
+* Images enthalten alle Informationen, die zum Betrieb des Containers wichtig sind
+* Images können z.B. vom Docker Hub unter https://hub.docker.com heruntergeladen werden
+* Bzw. geschieht das automatisch beim Bauen eines Containers, falls das benötigte Image lokal nicht vorhanden ist
+
+== Docker - grundlegende Kommandos
+
+=== Überblick über laufende und gestoppte Container
+
+Alle momentan laufende Container anzeigen:
+
+ docker ps
+
+Alle laufende und gestoppte Container anzeigen:
+
+ docker ps -a
+
+=== Starten von Containern
+
+Image vom Docker Hub herunterladen:
+
+ docker pull <image>
+ docker pull <image:tag>
+
+Mit einem `tag` kann eine bestimmte Version eines Images spezifiziert werden.
+
+Container bauen und starten:
+
+ docker run <image>
+ docker run <image:tag>
+
+Container mit interaktivem Terminal starten/sich auf dem Container einloggen:
+
+ docker run -it <image> /bin/bash
+
+Ein bestimmtes Kommando in einem Container ausführen:
+
+ docker run <image> <command>
+
+ docker run <image> ls -l
+
+=== Hintergrund und gestoppte Container
+
+Container im Hintergrund starten:
+
+ docker run -d <image>
+
+Interaktive Anmeldung mit Shell in einem _laufenden_ Container:
+
+ docker exec -it <container-id/name> /bin/bash
+
+Container stoppen:
+
+ docker stop <container-id/name>
+
+gestoppten Container wieder starten:
+
+ docker start <container-id/name>
+
+== Container löschen 
+
+Gestoppte Container verbleiben im Dateisystem, werden oft aber nicht mehr gebraucht. Sie können mit folgendem Kommando gelöscht werden:
+
+ docker rm <container-id/name>
+
+Es kann auch direkt beim Bauen eines Containers die Option `--rm` übergeben werden, dann wird der Container automatisch gelöscht, sobald er gestoppt wurde.
+
+Mit folgendem Kommando werden alle gestoppten Container, nicht verwendete Images etc. gelöscht:
+
+ docker system prune
+
+== Ports weiterleiten
+
+Docker Container laufen in einem eigenen Netzwerk, getrennt vom Host-Netzwerk. Container können untereinander über dieses kommunizieren. 
+
+Betreiben wir beispielsweise eine Webanwendung in einem Container, haben wir erstmal keinen Zugriff auf diesen von ausserhalb. Wir müssen hier z.B. die Ports 80 und 443 des Containers auf einen freien Port des Hosts weiterleiten. 
+
+Den Port `80` des Containers über Port `8888` des Hosts erreichbar machen:
+
+ docker run -p 8888:80 <image>
+
+== Daten peristent speichern
+
+Docker speichert Daten in den Containern in sog. _Unnamend Volumes_. Auf die Daten kann man von ausserhalb der Container nur bedingt zugreifen. Komfortabler ist die Verwendugn von _Bind Mounts_: Wir verbinden ein Verzeichnis des Host Systems mit einem Verzeichnis innerhalb des Containers. Die Verzeichnisinhlte werden dabei gespiegelt.
+
+ docker run -v /folder/on/host/:/folder/inside/container <image>
+
+
+
+
