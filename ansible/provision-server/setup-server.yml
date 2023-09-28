@@ -1,0 +1,36 @@
+---
+- name: Provision Server
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: Install basic packages
+    package:
+      name: 
+        - htop
+        - vim
+        - ncdu
+      state: latest
+
+  - name: Create regular user with password ('hallo') and home directory with skeleton files
+    user:
+      name: karlos
+      comment: Karlos Testaro
+      shell: /bin/bash
+      groups: sudo
+      append: yes
+      password: $6$D5XKNzFFsWuByAC4$3PkJ1NHfbUIf4YoJEzQg9TBDnI1CyOxsNxvXwHw6fsRUOSv18QVO0ESC7zwu5sr6fj2kYZ7Xc1Iw9OKHkSAuh.
+      create_home: yes
+
+  - name: Copy sshd_config to server
+    copy:
+      src: files/sshd_config
+      dest: /etc/ssh/sshd_config
+      owner: root
+      group: root
+      mode: '0644'
+
+  - name: Restart SSH service
+    systemd_service:
+      name: sshd.service
+      state: restarted
